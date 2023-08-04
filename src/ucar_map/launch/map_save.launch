@@ -1,0 +1,6 @@
+<launch>
+
+    <arg name="filename" value="$(find ucar_nav)/maps/vvvvvvv" />
+    <node name="map_save" pkg="map_server" type="map_saver" args="-f $(arg filename)" />
+
+</launch>

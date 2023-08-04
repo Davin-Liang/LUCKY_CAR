@@ -1,0 +1,17 @@
+yolo_model:
+
+  config_file:
+    name: yolov3-tiny.cfg
+  weight_file:
+    name: yolov3-tiny_210000.weights
+  threshold:
+    value: 0.3
+  detection_classes:
+    names:
+      - corn
+      - corn_fruit
+      - cucumber
+      - cucumber_fruit
+      - rice
+      - watermelon
+      - wheat
