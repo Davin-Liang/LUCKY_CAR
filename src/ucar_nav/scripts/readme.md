@@ -3,26 +3,26 @@
 own_classes.py:</br>
   存放自己创建的类
 
-base_function.py:
+base_function.py:</br>
   存放自己创建的函数
 
-SUST_Main_2.py:
+SUST_Main_2.py:</br>
   适配比赛中三个方案
 
-SUST_Main_2_1.py:
+SUST_Main_2_1.py:</br>
   根据决赛的方案一进行微调
 
-SUST_Main_2_2.py:
+SUST_Main_2_2.py:</br>
   根据决赛的方案二进行微调
 
-SUST_Main_2_3.py:
+SUST_Main_2_3.py:</br>
   根据决赛的方案三进行微调
 
-test_for_radar.py:
+test_for_radar.py:</br>
   测试未通过
 
-/pose:
+/pose:</br>
   存放根据比赛赛制设定的所有目标点（大部分目标点由刘磊生成）
 
-/voice:
+/voice:</br>
   存放比赛所用到的录音文件（全部录音文件均由沙森在电脑生成）
