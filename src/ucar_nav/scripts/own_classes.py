@@ -26,18 +26,18 @@ import queue
 
 from base_function import judge_array, determine_the_contents_of_all_lists
 
-# 语音节点通讯类
+# class for voice
 class ROS_Voice_Node(object):
     def __init__(self):
         self.get_start = False
-        # 话题名为 “ /start_lable ”
+        # topic name is  “ /start_lable ”
         self.start_lable_subscriber = rospy.Subscriber("/start_lable", Bool, self._get_start)
 
     def _get_start(self, voice_state):
         """唤醒成功"""
         self.get_start = voice_state
 
-# 视觉类
+# class for vision
 class ROS_Vision_Node(object):
     def __init__(self):
         # rospy.init_node("ros_nav_node", anonymous=False)
@@ -48,14 +48,7 @@ class ROS_Vision_Node(object):
 
     def _get_info(self, msg):
         num = len(msg.bounding_boxes)
-        # self.result_list = [""]
         self.result_list.clear()
-        # for i in range(num):
-            # if msg.bounding_boxes[i].Class != "":
-                # self.recognize_results1 = msg.bounding_boxes[i].Class
-                # print(self.recognize_results1)
-                # self.result_list.append(self.recognize_results1)
-        # self.result_list2 = self.result_list
         if num != 0:
             for i in range(num):
                 if msg.bounding_boxes[i].Class is None:
@@ -64,16 +57,9 @@ class ROS_Vision_Node(object):
                     self.result_list.append(msg.bounding_boxes[i].Class)
         else:
             return ""
-            # self.recognize_results = msg.bounding_boxes[0].Class
-            # self.result_list.append(self.recognize_results)
-        # if self.recognize_results1 != "":
-            
-        # if self.recognize_results2 != "":
-            # self.result_list.append(self.recognize_results2)
-        # if self.recognize_results3 != "":
-            # self.result_list.append(self.recognize_results3)
 
-# 导航目标发送类
+
+# class for navigation
 class ROS_Nav_Node(object):
     def __init__(self, dest_D="dest"):
         # rospy.init_node("ros_nav_node", anonymous=False)
@@ -107,12 +93,12 @@ class ROS_Nav_Node(object):
         # self.cancel_pub.publish(cancel_msg)
 
     def _get_info(self, msg):
-        """ 处理 odometry 消息 """
+        """ process odometry message """
         self.odom_pose_x = msg.pose.pose.position.x
         self.odom_pose_y = msg.pose.pose.position.y
 
     def get_pose(self, id):
-        """ 读取目标点的坐标 """
+        """ read coordinate for goal point """
         with open("/home/ucar/ucar_ws/src/ucar_nav/scripts/pose/pose_{}.json".format(id), "r") as f:
             text = json.loads(f.read())
             # "position"
@@ -126,7 +112,7 @@ class ROS_Nav_Node(object):
             self.ori_w = text["orientation"]["w"]
 
     def make_goal_pose(self):
-        """ 构造 goal """
+        """ build goal """
         self.goal = MoveBaseGoal()
         self.goal.target_pose.header.frame_id = "map"
         self.goal.target_pose.pose.position.x = self.pos_x
@@ -138,7 +124,7 @@ class ROS_Nav_Node(object):
         self.goal.target_pose.pose.orientation.w = self.ori_w
 
     def send_goal(self):
-        """ 发送 goal """
+        """ send goal """
         self.make_goal_pose()
         # 将目标对象通过 client 传入
         self.client.send_goal(self.goal)
@@ -176,10 +162,7 @@ class ROS_Nav_Node(object):
         """ 计算欧氏距离 """
         target_x = target_point[0]
         target_y = target_point[1]
-
-        # 欧式距离
         distance = sqrt((self.odom_pose_x - target_x) ** 2 + (self.odom_pose_y - target_y) ** 2)
-
         if distance < threshold:
             return True
 
@@ -396,9 +379,9 @@ class ROS_Nav_Node(object):
 
 
 
-# 雷达避障类
+# class for radar obstacle avoidance
 class LaserToGlobalConverter(object):
-    def __init__(self,  # 类所需要的属性都有初始值
+    def __init__(self,
                  target_frame="map",
                  scan_topic="/scan",
                  edge_dist_threshold=0.08,
