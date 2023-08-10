@@ -18,6 +18,9 @@ SUST_Main_2_2.py:
 SUST_Main_2_3.py:
   根据决赛的方案三进行微调
 
+test_for_radar.py:
+  测试未通过
+
 /pose:
   存放根据比赛赛制设定的所有目标点（大部分目标点由刘磊生成）
 
