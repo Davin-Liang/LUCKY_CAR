@@ -126,16 +126,16 @@ class ROS_Nav_Node(object):
     def send_goal(self):
         """ send goal """
         self.make_goal_pose()
-        # 将目标对象通过 client 传入
+        # send goal by client
         self.client.send_goal(self.goal)
 
     def get_state(self):
-        """ 判断目标完成情况，若完成目标则返回 True """
+        """ True judge the situation for finishing goal , if finishing goal, return True """
         result = self.client.get_result()
         return result
 
     def send_goal_with_area_name(self, area_name):
-        """ 结合读取和发送 """
+        """ combine reading with sending """
         with open("/home/ucar/ucar_ws/src/ucar_nav/scripts/pose/pose_{}.json".format(area_name), "r") as f:
             text = json.loads(f.read())
             # "position"
@@ -151,15 +151,13 @@ class ROS_Nav_Node(object):
         self.send_goal()
 
     def get_pose_xy(self):
-        "获取并返回当前坐标 X，Y"
         return self.odom_pose_x, self.odom_pose_y
 
     def wait_for_goal_reached(self):
-        """ 等待目标完成 """
+        """ wait for goal reached """
         self.client.wait_for_result()
 
     def check_if_pose_near(self, target_point, threshold=0.8):
-        """ 计算欧氏距离 """
         target_x = target_point[0]
         target_y = target_point[1]
         distance = sqrt((self.odom_pose_x - target_x) ** 2 + (self.odom_pose_y - target_y) ** 2)
