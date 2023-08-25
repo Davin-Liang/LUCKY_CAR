@@ -1,1 +1,1 @@
-# 仅需关注 darknet_ros/ 文件夹
+# 仅需关注 /darknet_ros 文件夹
