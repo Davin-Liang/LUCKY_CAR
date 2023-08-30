@@ -158,6 +158,8 @@ class ROS_Nav_Node(object):
         self.client.wait_for_result()
 
     def check_if_pose_near(self, target_point, threshold=0.8):
+        """If the distance between the present point and goal point is less than threshold , 
+            return "true", or return "false" """
         target_x = target_point[0]
         target_y = target_point[1]
         distance = sqrt((self.odom_pose_x - target_x) ** 2 + (self.odom_pose_y - target_y) ** 2)
@@ -173,10 +175,12 @@ class ROS_Nav_Node(object):
         return angle
 
     def point_of_arrival(self, point):
+        """ A single point navigation is completed by passing in a string of point. """
         self.send_goal_with_area_name(point)
         self.wait_for_goal_reached()
 
     def finish_room_tasks(self, Vision_Node, room, point1, point2, point3, point4, point5):
+        """ By only using a function , we can finish the tasks in each room. """
         results1 = [""]
         results2 = [""]
         results3 = [""]
